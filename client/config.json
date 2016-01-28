@@ -1,0 +1,25 @@
+{
+  "commandList" : [
+    "help",
+    "exit",
+    "loadRSA",
+    "connect",
+    "nick",
+    "join",
+    "timeLog",
+    "disconnect",
+    "setAdmin",
+    "kick",
+    "ban",
+    "unban",
+    "whipser",
+    "sendMessage",
+    "default"
+  ],
+  "socketCommandList" : [
+    "auth",
+    "userName",
+    "message"
+  ],
+  "maxLine":40
+}
