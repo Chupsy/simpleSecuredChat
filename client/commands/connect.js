@@ -1,5 +1,4 @@
 /*global appendToBox*/
-var NodeRSA = require('node-rsa');
 var helper = require('./../helper.js');
 var socketCommandList = require('./../config.json')["socketCommandList"];
 

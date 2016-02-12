@@ -1,6 +1,5 @@
 /*global appendToBox*/
 var NodeRSA = require('node-rsa');
-var util = require('util');
 var fs = require('fs');
 var helper = require('./../helper.js');
 

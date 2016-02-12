@@ -1,4 +1,5 @@
 exports.getCommand = function(line){
+  line = line.trim();
   if(line.indexOf('/') == 0){
     return line.indexOf(' ')>-1?line.substring(1, line.indexOf(' ')).trim() : line.substring(1).trim();
   }
@@ -6,6 +7,7 @@ exports.getCommand = function(line){
 };
 
 exports.getData = function(line){
+  line = line.trim();
   if(line.indexOf('/') == 0){
     return line.indexOf(' ')>-1?line.substring(line.indexOf(' ')).trim() :null;
   }
