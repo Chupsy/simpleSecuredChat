@@ -10,10 +10,10 @@ for(var i = 0; i<config.commandList.length; i++){
   commandList[c] = require('./server_modules/commands/'+c+'.js');
 }
 
-global.key = new NodeRSA({b: 512});
+global.key = new NodeRSA({b: config.RSA});
 
 setInterval(function(){
-  global.key = new NodeRSA({b: 512});
+  global.key = new NodeRSA({b: config.RSA});
   io.sockets.emit('updateRSA', {  key: global.key.exportKey('public') });
 }, 10000);
 

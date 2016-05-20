@@ -1,5 +1,6 @@
 {
   "port" : 8080,
+  "RSA" : 512,
   "commandList" : [
     "rsa",
     "setUsername",
