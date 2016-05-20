@@ -26,10 +26,8 @@ node client.js
 # Configuration
 
 For server configuration in config.json, you can modify port and RSA key length (128, 256, 512, 1024...).
-There is also the list of the active modules used.
 
 For client configuration in config.json, you can modify the maximum of lines displayed in the client.
-There is also the list of the active modules and socket modules used.
 
 # Commands
 
