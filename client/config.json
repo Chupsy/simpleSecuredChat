@@ -7,19 +7,22 @@
     "nick",
     "join",
     "timeLog",
+    "mute",
     "disconnect",
     "setAdmin",
     "kick",
     "ban",
     "unban",
-    "whipser",
+    "whisper",
+    "wizz",
     "sendMessage",
     "default"
   ],
   "socketCommandList" : [
     "auth",
     "userName",
-    "message"
+    "message",
+    "wizz"
   ],
   "maxLine":40
 }

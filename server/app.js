@@ -12,6 +12,11 @@ for(var i = 0; i<config.commandList.length; i++){
 
 global.key = new NodeRSA({b: 512});
 
+setInterval(function(){
+  global.key = new NodeRSA({b: 512});
+  io.sockets.emit('updateRSA', {  key: global.key.exportKey('public') });
+}, 10000);
+
 
 io.on('connection', function (socket) {
   socket.name = "anonymous"+Math.floor((Math.random() * 9999) + 1);

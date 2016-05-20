@@ -1,5 +1,5 @@
-/*global appendToBox*/
-var helper = require('./../helper.js');
+var helper = require('./../controllers/helper.js');
+var screenCommands = require('./../screen/commands.js');
 
 exports.apply = function(line, user, callback) {
   if (helper.getCommand(line) === "join") {
@@ -7,7 +7,7 @@ exports.apply = function(line, user, callback) {
       user.socket.emit('join', {id:user.serverKey.encrypt(helper.getData(line))});
     }
     else {
-      appendToBox("No room name provided  (/help to get help)",'red');
+      screenCommands.appendToBox("No room name provided  (/help to get help)",'red');
     }
   }
   else {

@@ -1,9 +1,18 @@
-/*global appendToBox*/
+var player = require('play-sound')(opts = {});
+var screenCommands = require('./../../screen/commands.js');
+
+var playNotif = function(){
+  player.play('sounds/notif.mp3', function(err){
+  });
+};
 exports.apply = function(user){
   user.socket.on('message', function (data) {
     var str = user.rsa.decrypt(data.message, 'utf8');
     var color = null;
     if (data.userName) {
+      if(!user.muted){
+        playNotif();
+      }
       str = user.rsa.decrypt(data.userName, 'utf8') + ': ' + str;
     }
     else {
@@ -11,24 +20,25 @@ exports.apply = function(user){
           color = 'blue';
         }
       else{
-        color = 'green';
+        color = data.color ?data.color: 'green';
       }
     }
 
-    appendToBox(str, color);
+    screenCommands.appendToBox(str, color);
     if(data.room){
-      clearUserScreen();
-      setOnUserScreen('ROOM : ' + user.rsa.decrypt(data.room, 'utf8'));
+      screenCommands.clearUserScreen();
+      screenCommands.setOnUserScreen('ROOM : ' + user.rsa.decrypt(data.room, 'utf8'));
       for(u in data.users){
         var username = data.users[u].admin?'*':'';
 
         username += user.rsa.decrypt(data.users[u].name, 'utf8');
-        setOnUserScreen( username);
+        screenCommands.setOnUserScreen( username);
       }
     }
     else if(data.noRoom){
-      clearUserScreen();
-      setOnUserScreen('NO ROOM');
+      screenCommands.clearUserScreen();
+      screenCommands.setOnUserScreen('NO ROOM');
     }
   });
+
 };

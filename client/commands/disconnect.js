@@ -1,12 +1,13 @@
-/*global appendToBox*/
-var helper = require('./../helper.js');
+var helper = require('./../controllers/helper.js');
+var screenCommands = require('./../screen/commands.js');
 
 exports.apply = function(line, user, callback) {
   if (helper.getCommand(line) === "disconnect") {
     user.socket.disconnect();
-    appendToBox('disconnected', 'red');
-    clearUserScreen();
-    setOnUserScreen('disconnected');
+    user.socket = null;
+    screenCommands.appendToBox('disconnected', 'red');
+    screenCommands.clearUserScreen();
+    screenCommands.setOnUserScreen('disconnected');
   }
   else {
     callback();

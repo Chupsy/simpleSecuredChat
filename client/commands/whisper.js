@@ -1,5 +1,5 @@
-/*global appendToBox*/
-var helper = require('./../helper.js');
+var helper = require('./../controllers/helper.js');
+var screenCommands = require('./../screen/commands.js');
 
 exports.apply = function(line, user, callback) {
   if (helper.getCommand(line) === "whisper" || helper.getCommand(line) === "w") {
@@ -13,11 +13,11 @@ exports.apply = function(line, user, callback) {
           user.socket.emit('whisper', {userName:user.serverKey.encrypt(username), message : user.serverKey.encrypt(message)});
         }
       else{
-          appendToBox("Missing parameters (name or message) (/help to get help)",'red');
+          screenCommands.appendToBox("Missing parameters (name or message) (/help to get help)",'red');
         }
     }
     else {
-      appendToBox("No user name and message provided (/help to get help)",'red');
+      screenCommands.appendToBox("No user name and message provided (/help to get help)",'red');
     }
   }
   else {

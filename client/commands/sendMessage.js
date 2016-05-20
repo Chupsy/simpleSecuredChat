@@ -1,5 +1,4 @@
-/*global appendToBox*/
-var helper = require('./../helper.js');
+var helper = require('./../controllers/helper.js');
 
 exports.apply = function(line, user, callback) {
   if (!helper.getCommand(line)) {

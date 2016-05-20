@@ -1,14 +1,15 @@
-/*global appendToBox*/
-var helper = require('./../helper.js');
+var helper = require('./../controllers/helper.js');
+var screenCommands = require('./../screen/commands.js');
 
 exports.apply = function(line, user, callback) {
   if (helper.getCommand(line) === "timelog") {
-    user.timelogEnabled = !user.timelogEnabled;
-    if(user.timelogEnabled){
-      appendToBox('timelog enabled','green');
+
+    screenCommands.user.timelogEnabled = !screenCommands.user.timelogEnabled;
+    if(screenCommands.user.timelogEnabled){
+      screenCommands.appendToBox('timelog enabled','green');
     }
     else{
-      appendToBox('timelog disabled','green');
+      screenCommands.appendToBox('timelog disabled','green');
     }
   }
   else {

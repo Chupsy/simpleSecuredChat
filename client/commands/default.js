@@ -1,10 +1,9 @@
-
-/*global appendToBox*/
-var helper = require('./../helper.js');
+var helper = require('./../controllers/helper.js');
+var screenCommands = require('./../screen/commands.js');
 
 exports.apply = function(line, user, callback) {
   if (helper.getCommand(line) != null) {
-    appendToBox('command unknown  (/help to get help)');
+    screenCommands.appendToBox('command unknown  (/help to get help)');
   }
   else {
     callback();
