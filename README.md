@@ -100,3 +100,8 @@ Wizz : <br/>
     command : /wizz nameOfUser  <br/>
     description : Send a wizz to the specified user (requires to be connected). <br/>
 
+<br/><br/>
+
+#THANK YOU
+
+Feel free to contact me if you need anything.
