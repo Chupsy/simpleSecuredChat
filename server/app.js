@@ -5,15 +5,16 @@ var NodeRSA = require('node-rsa');
 var sockets = require('./server_modules/sockets.js').list;
 var config = require('./config.json');
 var commandList = {};
-for(var i = 0; i<config.commandList.length; i++){
-  var c = config.commandList[i];
+var commands = require('./commands.json');
+for(var i = 0; i<commands.length; i++){
+  var c = commands[i];
   commandList[c] = require('./server_modules/commands/'+c+'.js');
 }
 
 global.key = new NodeRSA({b: config.RSA});
 
 setInterval(function(){
-  global.key = new NodeRSA({b: config.RSA});
+  global.key = new NodeRSA({b: 512});
   io.sockets.emit('updateRSA', {  key: global.key.exportKey('public') });
 }, 10000);
 

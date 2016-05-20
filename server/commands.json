@@ -1,0 +1,15 @@
+{
+  "commandList": [
+    "rsa",
+    "setUsername",
+    "ban",
+    "disconnect",
+    "kick",
+    "sendMessage",
+    "setAdmin",
+    "whisper",
+    "join",
+    "unban",
+    "wizz"
+  ]
+}

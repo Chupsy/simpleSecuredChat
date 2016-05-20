@@ -1,17 +1,4 @@
 {
   "port" : 8080,
-  "RSA" : 512,
-  "commandList" : [
-    "rsa",
-    "setUsername",
-    "ban",
-    "disconnect",
-    "kick",
-    "sendMessage",
-    "setAdmin",
-    "whisper",
-    "join",
-    "unban",
-    "wizz"
-  ]
+  "RSA" : 512
 }

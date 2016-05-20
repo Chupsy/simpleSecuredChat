@@ -1,9 +1,9 @@
-var config = require('./config.json');
+var commands = require('./../commands.json');
 var commandList = {};
 
-for(var i = 0; i<config["commandList"].length; i++)
+for(var i = 0; i<commands["commandList"].length; i++)
 {
-  commandList[i] = require('./commands/'+config["commandList"][i]+'.js');
+  commandList[i] = require('./../commands/'+commands["commandList"][i]+'.js');
 }
 
 exports.readLine = function(line,user){

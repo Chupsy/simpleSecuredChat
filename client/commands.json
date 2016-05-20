@@ -1,0 +1,27 @@
+{
+  "commandList": [
+    "help",
+    "exit",
+    "loadRSA",
+    "connect",
+    "nick",
+    "join",
+    "timeLog",
+    "mute",
+    "disconnect",
+    "setAdmin",
+    "kick",
+    "ban",
+    "unban",
+    "whisper",
+    "wizz",
+    "sendMessage",
+    "default"
+  ],
+  "socketCommandList": [
+    "auth",
+    "userName",
+    "message",
+    "wizz"
+  ]
+}

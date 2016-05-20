@@ -1,5 +1,5 @@
 var helper = require('./../controllers/helper.js');
-var socketCommandList = require('./../config.json')["socketCommandList"];
+var socketCommandList = require('./../commands.json')["socketCommandList"];
 var screenCommands = require('./../screen/commands.js');
 exports.apply = function(line, user, callback) {
   if (helper.getCommand(line) != "connect" && (!user.socket || !user.socket.isValid)) {
