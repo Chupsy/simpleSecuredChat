@@ -3,7 +3,7 @@ var screenCommands = require('./../screen/commands.js');
 
 exports.apply = function(line, user, callback) {
   if (helper.getCommand(line) === "timelog") {
-
+    screenCommands.appendToBox(">" + line);
     screenCommands.user.timelogEnabled = !screenCommands.user.timelogEnabled;
     if(screenCommands.user.timelogEnabled){
       screenCommands.appendToBox('timelog enabled','green');

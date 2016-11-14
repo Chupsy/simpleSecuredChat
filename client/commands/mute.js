@@ -3,7 +3,7 @@ var screenCommands = require('./../screen/commands.js');
 
 exports.apply = function(line, user, callback) {
   if (helper.getCommand(line) === "mute") {
-
+    screenCommands.appendToBox(">" + line);
     screenCommands.user.muted = !screenCommands.user.muted;
     if(screenCommands.user.muted){
       screenCommands.appendToBox('Application muted','green');

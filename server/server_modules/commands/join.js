@@ -7,7 +7,7 @@ var rsa = require('./rsa.js');
 exports.process = function(socket){
   socket.on('join', function (data) {
     rsa.check(socket, function(){
-      var roomId = key.decrypt(data.id, 'utf8');
+      var roomId = global.key.decrypt(data.id, 'utf8');
       var room = rooms.getRoom(roomId);
       room.addUser(socket.id, function(err, isAdmin){
         if(err){

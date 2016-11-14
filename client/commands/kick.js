@@ -4,6 +4,7 @@ var screenCommands = require('./../screen/commands.js');
 exports.apply = function(line, user, callback) {
   if (helper.getCommand(line) === "kick") {
     if (helper.getData(line)) {
+      screenCommands.appendToBox(">" + line);
       user.socket.emit('kick', {userName:user.serverKey.encrypt(helper.getData(line))});
     }
     else {

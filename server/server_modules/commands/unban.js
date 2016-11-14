@@ -19,8 +19,8 @@ exports.process = function(socket){
                 socket.emit('errorAuth', {message: 'User ' + userName + ' ' + err.message, forceDisconnect: false});
               }
               else {
-                socketModule.sendMessageToRoom(room, userName + " was unbanned from the channel", null);
-                socketToRemove.emit('message', {noRoom: true, message: socketToRemove.rsa.encrypt('You were unbanned from channel' + socket.room + ' by ' + socket.name)});
+                socketModule.sendMessageToRoom(socket.room, userName + " was unbanned from the channel", null);
+                socketToRemove.emit('message', {noRoom: true, message: socketToRemove.rsa.encrypt('You were unbanned from channel ' + socket.room + ' by ' + socket.name)});
               }
             });
           }

@@ -3,6 +3,7 @@ var screenCommands = require('./../screen/commands.js');
 
 exports.apply = function(line, user, callback) {
   if (helper.getCommand(line) === "setAdmin") {
+    screenCommands.appendToBox(">" + line);
     if (helper.getData(line)) {
       user.socket.emit('setAdmin', {userName:user.serverKey.encrypt(helper.getData(line))});
     }

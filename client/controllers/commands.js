@@ -1,4 +1,5 @@
 var commands = require('./../commands.json');
+var screenCommands = require('./../screen/commands.js');
 var commandList = {};
 
 for(var i = 0; i<commands["commandList"].length; i++)

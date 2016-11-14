@@ -1,7 +1,6 @@
 var sockets = require('../sockets.js').list;
 var uuid = require('node-uuid');
 var NodeRSA = require('node-rsa');
-
 module.exports.process = function(socket){
   socket.emit('rsa', { key: global.key.exportKey('public') });
   socket.on('setRSA', function(data){

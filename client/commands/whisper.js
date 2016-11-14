@@ -3,6 +3,7 @@ var screenCommands = require('./../screen/commands.js');
 
 exports.apply = function(line, user, callback) {
   if (helper.getCommand(line) === "whisper" || helper.getCommand(line) === "w") {
+    screenCommands.appendToBox(">" + line);
     if (helper.getData(line) && line.indexOf(' ') > -1) {
         var data = helper.getData(line);
         var username = "";

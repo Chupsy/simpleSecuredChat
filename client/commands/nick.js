@@ -3,6 +3,7 @@ var screenCommands = require('./../screen/commands.js');
 
 exports.apply = function(line, user, callback) {
   if (helper.getCommand(line) === "nick") {
+    screenCommands.appendToBox(">" + line);
     if (helper.getData(line)) {
       user.socket.emit('setUsername', {name:user.serverKey.encrypt(helper.getData(line))});
     }

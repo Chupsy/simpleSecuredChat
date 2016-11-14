@@ -16,9 +16,6 @@ var box = blessed.box({
     bg: 'black',
     border: {
       fg: '#f0f0f0'
-    },
-    hover: {
-      bg: 'green'
     }
   }
 });
@@ -33,9 +30,6 @@ var box2 = blessed.box({
     bg: 'black',
     border: {
       fg: '#f0f0f0'
-    },
-    hover: {
-      bg: 'green'
     }
   }
 });

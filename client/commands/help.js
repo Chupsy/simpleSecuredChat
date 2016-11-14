@@ -5,6 +5,7 @@ var screenCommands = require('./../screen/commands.js');
 
 exports.apply = function(line, user, callback) {
   if (helper.getCommand(line) === "help") {
+    screenCommands.appendToBox(">" + line);
     if (helper.getData(line)) {
       if(commandList.indexOf(helper.getData(line))>-1){
         command = require('./'+commandList[commandList.indexOf(helper.getData(line))]+'.js');
