@@ -10,6 +10,7 @@
     "mute",
     "disconnect",
     "setAdmin",
+    "setRoomPassword",
     "kick",
     "ban",
     "unban",

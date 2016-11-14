@@ -8,24 +8,38 @@ exports.process = function(socket){
   socket.on('join', function (data) {
     rsa.check(socket, function(){
       var roomId = global.key.decrypt(data.id, 'utf8');
+      var password;
+      if(data.password){
+        password = global.key.decrypt(data.id, 'utf8');
+      }
       var room = rooms.getRoom(roomId);
-      room.addUser(socket.id, function(err, isAdmin){
-        if(err){
-          socket.emit('message', {noRoom:true,message : socket.rsa.encrypt('User ' + err.message)});
+      if(!room.hasPassword() || password){
+        if(password == room.password){
+          room.addUser(socket.id, function(err, isAdmin){
+            if(err){
+              socket.emit('message', {noRoom:true,message : socket.rsa.encrypt('User ' + err.message)});
+            }
+            else{
+              if(socket.room){
+                rooms.getRoom(socket.room).removeUser(socket.id, function(){
+                  socketModule.sendMessageToRoom(socket.room,socket.name + ' has left the room', null, socket.id);
+                });
+              }
+              socket.room = roomId;
+              socketModule.sendMessageToRoom(socket.room,socket.name + ' has joined the room', null);
+              if(isAdmin){
+                socketModule.sendMessageToRoom(socket.room,socket.name + ' is now admin of the room', null);
+              }
+            }
+          });
         }
         else{
-          if(socket.room){
-            rooms.getRoom(socket.room).removeUser(socket.id, function(){
-              socketModule.sendMessageToRoom(socket.room,socket.name + ' has left the room', null, socket.id);
-            });
-          }
-          socket.room = roomId;
-          socketModule.sendMessageToRoom(socket.room,socket.name + ' has joined the room', null);
-          if(isAdmin){
-            socketModule.sendMessageToRoom(socket.room,socket.name + ' is now admin of the room', null);
-          }
+          socket.emit('message', {message : socket.rsa.encrypt('Password is invalid. You cannot access ' + room.name)});
         }
-      });
+      }
+      else{
+        socket.emit('message', {message : socket.rsa.encrypt('The room ' + room.name + ' is protected by a password.')});
+      }
     });
   });
 

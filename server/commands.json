@@ -6,6 +6,7 @@
     "disconnect",
     "kick",
     "sendMessage",
+    "setRoomPassword",
     "setAdmin",
     "whisper",
     "join",

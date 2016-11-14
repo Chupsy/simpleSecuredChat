@@ -26,7 +26,17 @@ function Room(name){
   this.admins = [];
   this.bans = [];
   this.name = name;
+  this.password = null;
 }
+
+Room.prototype.setPassword = function (password, cb) {
+  this.password = password;
+  cb();
+};
+
+Room.prototype.hasPassword = function(){
+  return this.password?true:false;
+};
 
 Room.prototype.isBanned = function (socketId) {
   return this.bans.indexOf(socketId)>-1;
