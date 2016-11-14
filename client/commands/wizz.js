@@ -18,5 +18,5 @@ exports.apply = function(line, user, callback) {
 };
 
 exports.help = function(){
-  return('- whisper / w : send a wizz to the user (ex : /wizz Toto)');
+  return('- wizz : send a wizz to the user (ex : /wizz Toto)');
 };
