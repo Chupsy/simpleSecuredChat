@@ -22,6 +22,37 @@ setInterval(function(){
 io.on('connection', function (socket) {
   socket.name = "anonymous"+Math.floor((Math.random() * 9999) + 1);
   sockets[socket.id] = socket;
+  socket.emit('rsa', { key: global.key.exportKey('public') });
+  socket.on('setRSA', function(data){
+    socket.rsa= null;
+    if(data.rsa)
+    {
+      socket.tmprsa = new NodeRSA(key.decrypt(data.rsa, 'utf8'));
+      socket.validateKey = uuid.v4();
+      socket.emit('validateRSA', {key : socket.tmprsa.encrypt(socket.validateKey)});
+    }
+    else
+    {
+      socket.emit('errorAuth',{message : 'no RSA set', forceDisconnect:true});
+      sockets[socket.id] = null;
+    }
+  });
+  socket.on('validateRSA', function(data){
+    if(socket.tmprsa && socket.validateKey && data.validateKey &&
+      socket.validateKey == key.decrypt(data.validateKey, 'utf8'))
+    {
+      socket.rsa = socket.tmprsa;
+      socket.tmprsa = null;
+      socket.emit('validateSuccess',{
+        name : socket.rsa.encrypt(socket.name)
+      });
+    }
+    else
+    {
+      socket.emit('errorAuth', {message : 'RSA validation failed', forceDisconnect:true});
+      sockets[socket.id] = null;
+    }
+  });
   for(var command in commandList){
     if(commandList.hasOwnProperty(command)){
       commandList[command].process(socket);
