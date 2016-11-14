@@ -1,5 +1,5 @@
 var helper = require('./../controllers/helper.js');
-var commandList = require('./../config.json')["commandList"];
+var commandList = require('./../commands.json')["commandList"];
 var command;
 var screenCommands = require('./../screen/commands.js');
 
