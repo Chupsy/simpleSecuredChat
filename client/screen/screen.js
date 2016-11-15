@@ -104,15 +104,19 @@ module.exports.promptPassword = function(cb){
   pwdPrompt.setContent('PASSWORD : ');
   pwdPrompt.hidden = false;
   if(input.focused){
-    input.focus();
+    screen.focusPop();
   }
   pwdInput.focus();
-  pwdInput.key('enter', function(ch, key) {
-    var line = this.getValue();
-    this.clearValue();
-    input.focus();
-    pwdPrompt.hidden = true;
-    screen.render();
-    cb(line);
-  });
+  pwdPrompt.cb = cb;
 };
+
+pwdInput.key('enter', function(ch, key) {
+  var line = this.getValue();
+  this.clearValue();
+  input.focus();
+  pwdPrompt.hide();
+  screen.render();
+  if(pwdPrompt.cb){
+    pwdPrompt.cb(line);
+  }
+});

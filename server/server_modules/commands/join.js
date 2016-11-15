@@ -10,7 +10,7 @@ exports.process = function(socket){
       var roomId = global.key.decrypt(data.id, 'utf8');
       var password;
       if(data.password){
-        password = global.key.decrypt(data.id, 'utf8');
+        password = global.key.decrypt(data.password, 'utf8');
       }
       var room = rooms.getRoom(roomId);
       if(!room.hasPassword() || password){
@@ -38,7 +38,7 @@ exports.process = function(socket){
         }
       }
       else{
-        socket.emit('message', {message : socket.rsa.encrypt('The room ' + room.name + ' is protected by a password.')});
+        socket.emit('passwordRequested', {roomId : socket.rsa.encrypt(roomId)});
       }
     });
   });
