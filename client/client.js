@@ -9,7 +9,14 @@ screen.key(['q', 'C-c'], function(ch, key) {
 
 screen.key(['escape', 'i'], function() {
   // Set the focus on the input.
-  input.focus();
+  if(blessed.pwdPrompt.hidden){
+    input.focus();
+  }
+  else{
+    blessed.pwdInput.focus();
+  }
 });
+
+
 
 screen.render();
