@@ -9,9 +9,6 @@ exports.apply = function(line, user, callback) {
       var dataToSend = {
         id:user.serverKey.encrypt(parsedLine.data)
       };
-      // if(parsedLine.p){
-      //   dataToSend.password = user.serverKey.encrypt(parsedLine.p);
-      // }
       user.socket.emit('join', dataToSend);
     }
     else {
