@@ -4,8 +4,11 @@ var rsa = require('./rsa.js');
 
 exports.process = function(socket){
   socket.on('setRoomPassword', function (data) {
-    rsa.check(socket, function(){
-      rooms.check(socket, function(room){
+    rsa.check(socket)
+      .then(function() {
+        return rooms.check(socket);
+      })
+      .then(function(room){
         rooms.checkAdminValidity(socket, function(){
           if(!data.password){
             socket.emit('errorAuth',{message : 'No password provided', forceDisconnect:false});
@@ -18,6 +21,5 @@ exports.process = function(socket){
           }
         });
       });
-    });
   });
 };

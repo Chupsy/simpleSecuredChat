@@ -35,14 +35,17 @@ module.exports.process = function(socket){
   });
 };
 
-module.exports.check = function(socket, cb){
-  if(socket.rsa)
-  {
-    cb();
-  }
-  else
-  {
-    socket.emit('errorAuth',{message : 'no RSA set', forceDisconnect:true});
-    sockets[socket.id] = null;
-  }
+module.exports.check = function(socket){
+  return new Promise(function(resolve, reject){
+    if(socket.rsa)
+    {
+      resolve();
+    }
+    else{
+      socket.emit('errorAuth',{message : 'no RSA set', forceDisconnect:true});
+      sockets[socket.id] = null;
+      reject();
+    }
+  });
+
 };

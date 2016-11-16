@@ -5,8 +5,11 @@ var rsa = require('./rsa.js');
 
 exports.process = function(socket){
   socket.on('unban', function (data) {
-    rsa.check(socket, function(){
-      rooms.check(socket, function(room){
+    rsa.check(socket)
+      .then(function() {
+        return rooms.check(socket);
+      })
+      .then(function(room){
         rooms.checkAdminValidity(socket, function() {
           if (!data.userName) {
             socket.emit('errorAuth', {message: 'No user provided', forceDisconnect: false});
@@ -26,6 +29,5 @@ exports.process = function(socket){
           }
         });
       });
-    });
   });
 };

@@ -4,7 +4,8 @@ var rsa = require('./rsa.js');
 
 exports.process = function(socket){
   socket.on('setUsername', function(data){
-    rsa.check(socket, function(){
+    rsa.check(socket)
+      .then(function() {
       var newName = key.decrypt(data.name, 'utf8');
       if(socketModule.isNameAvailable(newName)){
         var oldName = socket.name;

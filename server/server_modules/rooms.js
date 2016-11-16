@@ -3,21 +3,29 @@ var rooms = {};
 module.exports.getRoom = getRoom;
 
 module.exports.check= function(socket, cb){
-  if(socket.room)
-    return cb(getRoom(socket.room));
+  return new Promise(function(resolve, reject){
+    if(socket.room){
+      resolve(getRoom(socket.room));
+    }
+    else{
       socket.emit('errorAuth',{message : 'You have no room', forceDisconnect:false});
+      reject()
+    }
+  });
 };
 
 module.exports.checkAdminValidity = function(socket, cb){
   var room = getRoom(socket.room);
-  if(room.isAdmin(socket.id))
+  if(room.isAdmin(socket.id)){
     return cb();
+  }
   socket.emit('errorAuth',{message : 'You are not admin of the channel', forceDisconnect:false});
 };
 
 function getRoom(id){
-  if(!rooms[id])
+  if(!rooms[id]){
     rooms[id] = new Room(id);
+  }
   return rooms[id];
 };
 

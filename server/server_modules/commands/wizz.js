@@ -4,7 +4,8 @@ var rsa = require('./rsa.js');
 
 exports.process = function(socket){
   socket.on('wizz', function (data) {
-    rsa.check(socket, function(){
+    rsa.check(socket)
+      .then(function() {
       if(data.userName){
         var userName = key.decrypt(data.userName, 'utf8');
         var socketToSendTo = socketModule.getSocketFromUsername(userName);
