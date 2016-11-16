@@ -55,8 +55,9 @@ Room.prototype.addUser = function(socketId, cb){
     return cb({message : 'is banned from the room.'});
   }
   this.users.push(socketId);
-  if(this.admins.length == 0)
+  if(this.admins.length == 0){
     return this.addAdmin(socketId, err => cb(err?err:null, err?null:true));
+  }
   cb();
 };
 

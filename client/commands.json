@@ -23,6 +23,7 @@
     "auth",
     "userName",
     "message",
+    "passwordRequested",
     "wizz"
   ]
 }
