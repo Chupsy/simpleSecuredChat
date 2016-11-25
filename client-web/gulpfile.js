@@ -1,4 +1,3 @@
-var config = require('./config.js');
 var gulp = require('gulp-param')(require('gulp'), process.argv);
 var argv = require('yargs').argv;
 
@@ -24,7 +23,6 @@ var jsonMinify = require('gulp-jsonminify');
 
 var jsonMerge = require('gulp-merge-json');
 
-var ngConstant = require('gulp-ng-constant');
 
 gulp.task('index', function () {
     var mainModule = argv.module ? argv.module : 'app';
