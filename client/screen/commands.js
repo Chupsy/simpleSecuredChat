@@ -44,15 +44,19 @@ input.key('C-c', function(ch, key){
 
 input.key('enter', function(ch, key) {
   var line = this.getValue();
-  lineHistory.unshift(line);
-  if(line.length>30){
-    lineHistory.pop();
+  if(line.trim().length > 0){
+    if(!lineHistory[0] || line !== lineHistory[0]){
+      lineHistory.unshift(line);
+      if(line.length>30){
+        lineHistory.pop();
+      }
+    }
+    currentLineHistory = -1;
+    commands.readLine(line, user);
   }
-  commands.readLine(line, user);
   this.clearValue();
   screen.render();
   input.focus();
-  currentLineHistory = -1;
   baseValue = '';
 });
 
