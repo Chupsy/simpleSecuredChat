@@ -1,7 +1,7 @@
 /*@ngInject*/
 module.exports = function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/home/rsa');
     $stateProvider
         .state('home', states.home());
 };
@@ -9,11 +9,14 @@ module.exports = function ($stateProvider, $urlRouterProvider, $locationProvider
 var states = {
     home: function () {
         return {
-            url: '/home',
-            templateUrl: 'app/components/home/home.view.html',
+            url : '/home',
             controller: 'HomeController',
-            controllerAs: 'homeVm',
+            abstract : true,
             resolve: {
+                user : ['User', function(User){
+                    console.log('user generated');
+                    return new User();
+                }]
             }
         }
     }

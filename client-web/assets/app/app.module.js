@@ -17,7 +17,8 @@
         'ct.ui.router.extras.transition',
         'ct.ui.router.extras.previous',
         'ct.ui.router.extras.sticky',
-        require('./components/home/home.module')
+        require('./components/home/home.module'),
+        require('./shared/user/user.module')
     ];
 
     angular
