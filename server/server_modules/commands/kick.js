@@ -3,32 +3,36 @@ var socketModule = require('../sockets.js');
 var rooms = require('../rooms.js');
 var rsa = require('./rsa.js');
 
-exports.process = function(socket){
+exports.process = function (socket) {
   socket.on('kick', function (data) {
     rsa.check(socket)
-      .then(function() {
+      .then(function () {
         return rooms.check(socket);
       })
-      .then(function(room){
-          rooms.checkAdminValidity(socket, function() {
-            if(!data.userName){
-              socket.emit('errorAuth',{message : 'No user provided', forceDisconnect:false});
+      .then(function (room) {
+        rooms.checkAdminValidity(socket)
+          .then(function () {
+            if (!data.userName) {
+              socket.emit('errorAuth', {message: 'No user provided', forceDisconnect: false});
             }
-            else{
+            else {
               var userName = key.decrypt(data.userName, 'utf8');
               var socketToRemove = socketModule.getSocketFromUsername(userName);
-              room.removeUser(socketToRemove.id, function(err){
-                if(err){
-                  socket.emit('errorAuth',{message : 'User ' + userName + ' ' + err.message, forceDisconnect:false});
+              room.removeUser(socketToRemove.id, function (err) {
+                if (err) {
+                  socket.emit('errorAuth', {message: 'User ' + userName + ' ' + err.message, forceDisconnect: false});
                 }
-                else{
+                else {
                   socketModule.sendMessageToRoom(socket.room, userName + " was kicked from the channel", null);
                   socketToRemove.room = null;
-                  socketToRemove.emit('message', {noRoom:true,message : socketToRemove.rsa.encrypt('You were kicked from channel by ' + socket.name)});
+                  socketToRemove.emit('message', {
+                    noRoom: true,
+                    message: socketToRemove.rsa.encrypt('You were kicked from channel by ' + socket.name)
+                  });
                 }
               });
             }
           });
-        });
+      });
   })
 };
