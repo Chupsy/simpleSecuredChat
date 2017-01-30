@@ -88,15 +88,18 @@ Room.prototype.addAdmin = function (socketId, cb) {
   cb();
 };
 
-Room.prototype.addBan = function (socketId, cb) {
-  if (!this.isUser(socketId)) {
-    return cb({message: 'is not part of the room.'});
-  }
-  if (this.isBanned(socketId)) {
-    return cb({message: 'is already banned from the room.'});
-  }
-  this.bans.push(socketId);
-  cb();
+Room.prototype.addBan = function (socketId) {
+  var self = this;
+  return new Promise(function(resolve, reject){
+    if (!self.isUser(socketId)) {
+      return reject({message: 'is not part of the room.'});
+    }
+    if (self.isBanned(socketId)) {
+      return reject({message: 'is already banned from the room.'});
+    }
+    self.bans.push(socketId);
+    resolve();
+  });
 };
 
 Room.prototype.removeBan = function (socketId, cb) {
