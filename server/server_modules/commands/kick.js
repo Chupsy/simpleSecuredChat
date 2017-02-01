@@ -1,38 +1,22 @@
-var sockets = require('../sockets.js').list;
 var socketModule = require('../sockets.js');
-var rooms = require('../rooms.js');
-var rsa = require('./rsa.js');
 
-exports.process = function (socket) {
-  socket.on('kick', function (data) {
-    rsa.check(socket)
-      .then(function () {
-        return rooms.check(socket);
-      })
-      .then(function (room) {
-        rooms.checkAdminValidity(socket)
-          .then(function () {
-            if (!data.userName) {
-              socket.emit('errorAuth', {message: 'No user provided', forceDisconnect: false});
-            }
-            else {
-              var userName = key.decrypt(data.userName, 'utf8');
-              var socketToRemove = socketModule.getSocketFromUsername(userName);
-              room.removeUser(socketToRemove.id, function (err) {
-                if (err) {
-                  socket.emit('errorAuth', {message: 'User ' + userName + ' ' + err.message, forceDisconnect: false});
-                }
-                else {
-                  socketModule.sendMessageToRoom(socket.room, userName + " was kicked from the channel", null);
-                  socketToRemove.room = null;
-                  socketToRemove.emit('message', {
-                    noRoom: true,
-                    message: socketToRemove.rsa.encrypt('You were kicked from channel by ' + socket.name)
-                  });
-                }
-              });
-            }
-          });
+module.exports = function (socket, data, requestData) {
+  if (!data.userName) {
+    return socket.emit('errorAuth', {message: 'No user provided', forceDisconnect: false});
+  }
+  var userName = key.decrypt(data.userName, 'utf8');
+  var socketToRemove = socketModule.getSocketFromUsername(userName);
+  requestData.room.removeUser(socketToRemove.id)
+    .then(function(){
+      socketModule.sendMessageToRoom(socket.room, userName + " was kicked from the channel", null);
+      socketToRemove.room = null;
+      socketToRemove.emit('message', {
+        noRoom: true,
+        message: socketToRemove.rsa.encrypt('You were kicked from channel by ' + socket.name)
       });
-  })
+    })
+    .catch(function(err){
+      socket.emit('errorAuth', {message: 'User ' + userName + ' ' + err.message, forceDisconnect: false});
+
+    });
 };
