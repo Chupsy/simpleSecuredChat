@@ -1,16 +1,56 @@
 {
   "commandList": [
-    "rsa",
-    "setUsername",
-    "ban",
-    "disconnect",
-    "kick",
-    "sendMessage",
-    "setRoomPassword",
-    "setAdmin",
-    "whisper",
-    "join",
-    "unban",
-    "wizz"
+    {
+      "name" : "setRSA",
+      "middlewares" : []
+    },
+    {
+      "name" : "validateRSA",
+      "middlewares" : []
+    },
+    {
+      "name" : "setUsername",
+      "middlewares" : ["checkRSA"]
+    },
+    {
+      "name" : "ban",
+      "middlewares" : ["checkRSA", "checkRoom", "checkAdminAvailability"]
+    },
+    {
+      "name" : "disconnect",
+      "middlewares" : []
+    },
+    {
+      "name" : "kick",
+      "middlewares" : ["checkRSA", "checkRoom", "checkAdminAvailability"]
+    },
+    {
+      "name" : "sendMessage",
+      "middlewares" : ["checkRSA", "checkRoom"]
+    },
+    {
+      "name" : "setRoomPassword",
+      "middlewares" : ["checkRSA", "checkRoom", "checkAdminAvailability"]
+    },
+    {
+      "name" : "setAdmin",
+      "middlewares" : ["checkRSA", "checkRoom", "checkAdminAvailability"]
+    },
+    {
+      "name" : "whisper",
+      "middlewares" : ["checkRSA"]
+    },
+    {
+      "name" : "join",
+      "middlewares" : ["checkRSA"]
+    },
+    {
+      "name" : "unban",
+      "middlewares" : ["checkRSA", "checkRoom", "checkAdminAvailability"]
+    },
+    {
+      "name" : "wizz",
+      "middlewares" : ["checkRSA"]
+    }
   ]
 }

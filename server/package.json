@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "blessed": "^0.1.81",
+    "bluebird": "^3.4.7",
     "express": "^4.13.4",
     "moment": "^2.10.6",
     "node-rsa": "^0.2.30",
